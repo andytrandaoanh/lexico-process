@@ -34,7 +34,18 @@ def secondRun(fileName, dirIn, dirOut):
 			lineMap.append(span)
 			span = []
 
+		#last item
+		if (i == len(lineTuple) - 2):
+			#print('i+1:', i+1)
+			#print(lineTuple[i], lineTuple[i+1])
+			if (lineTuple[i][0] != lineTuple[i+1][0]):
+				span=[]
+				span.append(i+1)
+				lineMap.append(span)
+
+
 	dataOut = []
+	#print(lineMap)
 	for items in lineMap:
 		if len(items) == 1:
 			#print('single', items)
@@ -68,5 +79,11 @@ if __name__ == "__main__":
 	fileList = os.listdir(dirIn)
 	for item in fileList:
 		secondRun(item, dirIn, dirOut)
+	
+	#for debug
+	#item = fileList[0]
+	#print('item:', item)
+	secondRun(item, dirIn, dirOut)
+
 
 	openDir(dirOut)

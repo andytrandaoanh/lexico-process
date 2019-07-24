@@ -8,6 +8,41 @@ def splitLine(line):
 	text = temp[1]
 	return (key, text)
 
+def listToString(inputList):
+	#SPLIT AND REPACK LIST SEPERATED BY PIPE CHARACTER
+	#print('composing...')
+	stringOutput = ''
+	if(inputList):
+		if ('|' in inputList):
+			items = inputList.split('|')
+			for item in items:
+				if (item):
+					if (stringOutput):
+						stringOutput += ', ' + item
+					else:
+						stringOutput = item
+		else:
+			stringOutput = inputList
+
+	return stringOutput	
+
+
+def listToList(inputList):
+	#SPLIT AND REPACK LIST SEPERATED BY PIPE CHARACTER
+	#print('composing...')
+	outputList = []
+	if(inputList):
+		if ('|' in inputList):
+			items = inputList.split('|')
+			for item in items:
+				if (item):
+					outputList.append(item)
+		else:
+			outputList.append(inputList) 
+
+	return outputList
+
+
 
 
 if __name__ == "__main__":
