@@ -38,7 +38,7 @@ def firstRun(word, filePath):
 
 	else:
 		#print('single headword')
-		ProcessSingleHeadword(word, lines, 1)
+		ProcessSingleHeadword(word, lines, 0)
 
 
 if __name__ == "__main__":

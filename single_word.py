@@ -3,7 +3,11 @@ from share_function import splitLine, listToString, listToList
 from pprint import pprint
 
 def ProcessSingleHeadword(word, lines, idx):
-	pathOut = 'E:/FULLTEXT/LEXICO/OUTPUT/' + word + '_' + str(idx) + '.txt'
+	if (idx > 0):
+		pathOut = 'E:/FULLTEXT/LEXICO/OUTPUT/' + word + '_' + str(idx) + '.txt'
+	else:
+		pathOut = 'E:/FULLTEXT/LEXICO/OUTPUT/' + word + '.txt'
+
 	writeListToFile(lines, pathOut)
 
 def processHeadWordLines(sectLines):
@@ -15,7 +19,8 @@ def processHeadWordLines(sectLines):
 		'[graphnum]': 'homograph-index', 
 		'[variants]': 'spelling-variants', 
 		'[graphnum]': 'homograph-index',
-		'[phonetic]': 'phonetic-transcripts'
+		'[phonetic]': 'phonetic-transcripts',
+		'[crossref]': 'cross-reference'
 		}
 	
 
@@ -55,7 +60,8 @@ def processMeanings(senseLines):
 		'[synonyms]': 'synonyms',
 		'[notebold]': 'highlight',
 		'[notetone]': 'register',
-		'[notearea]': 'region-domain'
+		'[notearea]': 'region-domain',
+		'[crossref]': 'cross-reference'
 		}
 
 	for line in senseLines:
@@ -134,7 +140,8 @@ def processSimpleCategory(sectLines):
 		'[synonyms]': 'synonyms',
 		'[notebold]': 'highlight',
 		'[notetone]': 'register',
-		'[notearea]': 'region-domain'
+		'[notearea]': 'region-domain',
+		'[crossref]': 'cross-reference'
 		}
 
 
@@ -234,7 +241,8 @@ def processSimplePhrase(lines):
 		'[notebold]': 'highlight',
 		'[notetone]': 'register',
 		'[notearea]': 'region-domain',
-		'[sensenum]': 'sense-number'
+		'[sensenum]': 'sense-number',
+		'[crossref]': 'cross-reference'
 	}
 
 

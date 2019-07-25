@@ -5,7 +5,7 @@ import single_word as sw
 from pprint import pprint
 
 
-fileName = 'go_1.txt'
+fileName = 'A-star.txt'
 fileNameJSON = fileName.replace(".txt", ".json")
 dirIn = 'E:/FULLTEXT/LEXICO/COMPACT'
 dirOut = 'E:/FULLTEXT/LEXICO/JSON'
