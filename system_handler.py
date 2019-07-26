@@ -6,7 +6,15 @@ def openDir(targetdir):
 	rpath = os.path.realpath(targetdir)
 	os.startfile(rpath)
 
-
+def getFilePath(pathIn, dirOut):
+	EXT = ".txt"
+	temp_path = pathIn
+	temp_path = os.path.basename(temp_path)
+	fname, fext = os.path.splitext(temp_path)
+	pathOut =  os.path.join(dirOut, fname + EXT) 
+	#pathOut =  os.path.join(dirOut, FILNAME_OUT) 
+	return pathOut
+	
 def getIncrementDataPath(incNumber, dataOutDir):
 	PADDING_ZEROS = 8
 	HTML_HEADER = "Lexico_Extract_Data_"
@@ -25,8 +33,18 @@ def getIncrementLogPath(incNumber, logOutDir):
 	log_path =  os.path.join(logOutDir, TEXT_HEADER + increment + TEXT_EXT) 
 	return(log_path)
 
+def getDatedFilePath(prefix, dirOut):
+	time_now = datetime.now()
+	time_string = time_now.strftime("%Y%m%d_%H%M%S")
+	temp_path = prefix + time_string + ".txt"
+	pathOut =  os.path.join(dirOut, temp_path) 
+	return(pathOut)
 
+def getDateStamp():
+	getDateStamp = str(datetime.now())
+	return(getDateStamp)
 	
+
 def readTextFile(filepath):
 	try:
 	    ofile = open(filepath, 'r', encoding = 'utf-8') 
@@ -73,6 +91,3 @@ def writeJSON(data, pathOut):
 	with open(pathOut, 'w', encoding ="utf-8") as outfile:  
 		json.dump(data, outfile)
 
-def getDateStamp():
-	getDateStamp = str(datetime.now())
-	return(getDateStamp)

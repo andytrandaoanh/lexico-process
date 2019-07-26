@@ -33,7 +33,7 @@ def getSingleWord(wordIn, proxies, headers):
 				return (None, statusMessage)
 
 	else:		
-		statusMessage = "Fail to remotely get the word " + word
+		statusMessage = "Fail to remotely get the word " + wordIn
 		return (None, statusMessage)
 
 

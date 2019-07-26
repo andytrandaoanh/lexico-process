@@ -1,8 +1,12 @@
 import os
 from system_handler import writeListToFile, getLineFromTextFile, openDir
 from share_function import splitLine
+from system_handler import getDatedFilePath, getDateStamp
+import config_handler
 
-def secondRun(fileName, dirIn, dirOut):
+
+
+def runThirdProcess(fileName, dirIn, dirOut):
 
 	pathIn = os.path.join(dirIn, fileName)
 
@@ -70,20 +74,46 @@ def secondRun(fileName, dirIn, dirOut):
 
 
 	writeListToFile(dataOut, pathOut)
-	#openDir(dirOut)
+
+	message = 'Finished compacting ' + fileName 
+	return message
+
 
 if __name__ == "__main__":
 	
-	dirIn = 'E:/FULLTEXT/LEXICO/OUTPUT'
-	dirOut = 'E:/FULLTEXT/LEXICO/COMPACT/'
+	dirIn = 'E:/FULLTEXT/LEXICO/TEXT2'
+	dirOut = 'E:/FULLTEXT/LEXICO/TEXT3'
+	dirLog = 'E:/FULLTEXT/LEXICO/LOG'
+	cf = config_handler.ConfigHandler()
+	recentFile = cf.get_config_value(cf.RECENT_OPEN_FILE3)
+	#print(recentFile)
 	fileList = os.listdir(dirIn)
+	lastFile = ''
+	prefix = 'Lexicon_Third_Run_Log_'
+	logData = []
+	logPath = getDatedFilePath(prefix, dirLog)
+	#print('log path:', logPath)
+	timeStamp = getDateStamp()
+	message = 'Starting processing at ' + timeStamp
+	logData.append(message)
+	print(message)
+
 	for item in fileList:
-		secondRun(item, dirIn, dirOut)
+		if (item > recentFile):
+			lastFile = item
+			message = 'Processsing item ' + item
+			logData.append(message)
+			print(message)
+			message = runThirdProcess(item, dirIn, dirOut)
+			logData.append(message)
+			print(message)
 	
-	#for debug
-	#item = fileList[0]
-	#print('item:', item)
-	#secondRun(item, dirIn, dirOut)
-
-
+	#WRITE INI
+	cf.set_config_value(cf.RECENT_OPEN_FILE3, lastFile)	
+	timeStamp = getDateStamp()
+	message = 'Finished processing at ' + timeStamp
+	logData.append(message)
+	print(message)
+	writeListToFile(logData, logPath)
 	openDir(dirOut)
+	
