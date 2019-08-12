@@ -45,16 +45,21 @@ def runFourthProcess(fileName, dirIn, dirOut):
 
 	#STEP 2: EXTRACT START AND END INDEX FOR EACH SECTION
 	#print('lineMap:', lineMap)
-
+	#print('len -1', len(lineMap)-1)
 	idxMap = []
-	for i in range(len(lineMap)-1):
-		tup = (lineMap[i][0], lineMap[i][1], lineMap[i+1][1])
+
+	if len(lineMap) == 1:
+		tup = (lineMap[0][0], lineMap[0][1], len(lines) -1)
 		idxMap.append(tup)
-		if (i == len(lineMap)-2):
-			lastIdx = i + 1
-			#print(lineMap[lastIdx][1])
-			tup = (lineMap[lastIdx][0], lineMap[lastIdx][1], len(lines) -1)
+	elif len(lineMap) > 1:
+		for i in range(len(lineMap)-1):
+			tup = (lineMap[i][0], lineMap[i][1], lineMap[i+1][1])
 			idxMap.append(tup)
+			if (i == len(lineMap)-2):
+				lastIdx = i + 1
+				#print(lineMap[lastIdx][1])
+				tup = (lineMap[lastIdx][0], lineMap[lastIdx][1], len(lines) -1)
+				idxMap.append(tup)
 
 		
 
@@ -139,7 +144,7 @@ if __name__ == "__main__":
 	print(message)
 
 	#check recent file
-	
+	"""
 	for item in fileList:
 		if (item > recentFile):
 			lastFile = item
@@ -150,6 +155,18 @@ if __name__ == "__main__":
 			logData.append(message)
 			print(message)
 	cf.set_config_value(cf.RECENT_OPEN_FILE4, lastFile)	
+	"""
+	#NOT CHECKING RECENT FILES
+	
+	for item in fileList:
+		message = 'Processsing item ' + item
+		logData.append(message)
+		print(message)
+		message = runFourthProcess(item, dirIn, dirOut)
+		logData.append(message)
+		print(message)	
+	#WRITE INI
+
 	timeStamp = getDateStamp()
 	message = 'Finished processing at ' + timeStamp
 	logData.append(message)

@@ -16,9 +16,7 @@ def runFourthProcess(fileName, dirIn, dirOut):
 	pathOut = os.path.join(dirOut, fileNameJSON)
 	lines = getLineFromTextFile(pathIn)
 
-	#pprint(lines)
 	sLines = []
-
 
 	#STEP 1: CREATE A LINE MAP TO MARK WHERE SECTIONS START
 
@@ -99,8 +97,8 @@ def runFourthProcess(fileName, dirIn, dirOut):
 
 
 
-
-
+	pprint(objectList)
+	"""
 	#STEP 4: MERGE OBJECTS
 	masterObject = {}
 	for obj in objectList:
@@ -118,42 +116,48 @@ def runFourthProcess(fileName, dirIn, dirOut):
 	message = 'Finished converting ' + fileName + ' to JSON' 
 	return message
 
+	"""
+
 
 if __name__ == "__main__":
 	
 	dirIn = 'E:/FULLTEXT/LEXICO/TEXT3'
 	dirOut = 'E:/FULLTEXT/LEXICO/JSON'
 	dirLog = 'E:/FULLTEXT/LEXICO/LOG'
-	cf = config_handler.ConfigHandler()
-	recentFile = cf.get_config_value(cf.RECENT_OPEN_FILE4)
-	#print(recentFile)
-	fileList = os.listdir(dirIn)
-	lastFile = ''
-	prefix = 'Lexicon_Fourth_Run_Log_'
-	logData = []
-	logPath = getDatedFilePath(prefix, dirLog)
-	#print('log path:', logPath)
-	timeStamp = getDateStamp()
-	message = 'Starting processing at ' + timeStamp
-	logData.append(message)
-	print(message)
-
-	#check recent file
+	item = 'Lexico_Extract_Data_00002996_1.txt'
 	
-	for item in fileList:
-		if (item > recentFile):
-			lastFile = item
-			message = 'Processsing item ' + item
-			logData.append(message)
-			print(message)
-			message = runFourthProcess(item, dirIn, dirOut)
-			logData.append(message)
-			print(message)
-	cf.set_config_value(cf.RECENT_OPEN_FILE4, lastFile)	
-	timeStamp = getDateStamp()
-	message = 'Finished processing at ' + timeStamp
-	logData.append(message)
-	print(message)
-	writeListToFile(logData, logPath)
-	openDir(dirOut)
+	runFourthProcess(item, dirIn, dirOut)
+
+	#cf = config_handler.ConfigHandler()
+	#recentFile = cf.get_config_value(cf.RECENT_OPEN_FILE4)
+	#print(recentFile)
+	#fileList = os.listdir(dirIn)
+	#lastFile = ''
+	#prefix = 'Lexicon_Fourth_Run_Log_'
+	#logData = []
+	#logPath = getDatedFilePath(prefix, dirLog)
+	#print('log path:', logPath)
+	#timeStamp = getDateStamp()
+	#message = 'Starting processing at ' + timeStamp
+	#logData.append(message)
+	#print(message)
+
+	#for item in fileList:
+	#	if (item > recentFile):
+	#		lastFile = item
+	#		message = 'Processsing item ' + item
+	#		logData.append(message)
+	#		print(message)
+	#		message = runFourthProcess(item, dirIn, dirOut)
+	#		logData.append(message)
+	#		print(message)
+	
+	#WRITE INI
+	#cf.set_config_value(cf.RECENT_OPEN_FILE4, lastFile)	
+	#timeStamp = getDateStamp()
+	#message = 'Finished processing at ' + timeStamp
+	#logData.append(message)
+	#print(message)
+	#writeListToFile(logData, logPath)
+	#openDir(dirOut)
 	

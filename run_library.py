@@ -21,7 +21,8 @@ def processSimpleHeadword(sectLines):
 		'[variants]': 'spelling-variants', 
 		'[graphnum]': 'homograph-index',
 		'[phonetic]': 'phonetic-transcripts',
-		'[crossref]': 'cross-reference'
+		'[crossref]': 'cross-reference',
+		'[notearea]': 'region-domain'
 		}
 	
 
@@ -35,17 +36,30 @@ def processSimpleHeadword(sectLines):
 
 	return headwordObject
 
+
+
+
+
 def processHeadWordLines(sectLines):
 	# DETERMINE IF THIS IS SIMPLE OR COMPLEX HEADWORD
 	#pprint(sectLines)
-	
+	senseSigns = [
+	'[sensenum]', 
+	'[notegram]',
+	'[meanings]',
+	'[examples]',
+	'[synonyms]',
+	'[notebold]',
+	'[notetone]',
+	'[notearea]',
+	'[crossref]']
 	
 	complexHeadWord = False
 	hwLastIndex = 0
 	num = 0
 	for line in sectLines:
 		key, text = splitLine(line)
-		if (key == '[sensenum]' or key == '[meanings]' or key == '[examples]'): 
+		if (key in senseSigns): 
 			complexHeadWord = True
 			hwLastIndex = num
 			#print('last index:', hwLastIndex)
@@ -63,9 +77,11 @@ def processHeadWordLines(sectLines):
 		
 		complexObject = processSimpleHeadword(newHeadWordLines)
 		senseObject =  processMeanings(newSenseLines)
+		
+		complexObject['symbol'] = senseObject
 		#merge to objext
-		for key in senseObject:
-			complexObject[key] = senseObject[key]
+		#for key in senseObject:
+		#	complexObject[key] = senseObject[key]
 		return complexObject
 			
 	else:
@@ -281,7 +297,8 @@ def processSimplePhrase(lines):
 		'[notetone]': 'register',
 		'[notearea]': 'region-domain',
 		'[sensenum]': 'sense-number',
-		'[crossref]': 'cross-reference'
+		'[crossref]': 'cross-reference',
+		'[variants]': 'spelling-variants'
 	}
 
 
